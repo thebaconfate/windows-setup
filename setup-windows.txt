@@ -1,0 +1,48 @@
+
+winget install Git.Git
+winget install Microsoft.PowerToys
+winget install fnm
+winget install neovim
+winget install oh-my-posh
+winget install brave.brave
+# winget install spotify
+winget install openssl
+winget install python
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+ssh-keygen -t ed25519 -C "you@example.com"
+Set-Service ssh-agent -StartupType Automatic
+Start-Service ssh-agent
+ssh-add $env:USERPROFILE/.ssh/id_ed25519
+winget install --id Microsoft.PowerShell
+wsl --install
+
+
+function Add-ToPath {
+    param (
+        [Parameter(Mandatory)]
+        [string]$PathToAdd,
+
+        [ValidateSet("User", "Machine")]
+        [string]$Scope = "User"
+    )
+
+    # Normalize
+    $PathToAdd = [System.IO.Path]::GetFullPath($PathToAdd).TrimEnd('\')
+
+    $current = [Environment]::GetEnvironmentVariable("PATH", $Scope)
+
+    if ([string]::IsNullOrWhiteSpace($current)) {
+        $new = $PathToAdd
+    }
+    elseif ($current -split ';' -contains $PathToAdd) {
+        Write-Host "PATH already contains $PathToAdd"
+        return
+    }
+    else {
+        $new = "$current;$PathToAdd"
+    }
+
+    [Environment]::SetEnvironmentVariable("PATH", $new, $Scope)
+    Write-Host "Added $PathToAdd to $Scope PATH"
+}
