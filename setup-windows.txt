@@ -17,6 +17,7 @@ ssh-add $env:USERPROFILE/.ssh/id_ed25519
 winget install --id Microsoft.PowerShell
 winget install oh-my-posh
 wsl --install
+wsl --install ubuntu
 
 
 function Add-ToPath {
