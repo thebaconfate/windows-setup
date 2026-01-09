@@ -15,6 +15,7 @@ Set-Service ssh-agent -StartupType Automatic
 Start-Service ssh-agent
 ssh-add $env:USERPROFILE/.ssh/id_ed25519
 winget install --id Microsoft.PowerShell
+winget install oh-my-posh
 wsl --install
 
 
@@ -46,3 +47,10 @@ function Add-ToPath {
     [Environment]::SetEnvironmentVariable("PATH", $new, $Scope)
     Write-Host "Added $PathToAdd to $Scope PATH"
 }
+
+# make symlinks
+
+## nvim
+New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\nvim" -Target "$env:USERPROFILE\.dotfiles\nvim-config"
+New-Item -ItemType SymbolicLink -Path $PROFILE -Target "$HOME\.dotfiles\pwsh-config\Microsoft.PowerShell_profile.ps1"
+
