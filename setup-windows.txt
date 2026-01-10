@@ -20,7 +20,15 @@ winget install --id Microsoft.PowerShell
 winget install oh-my-posh
 wsl --install
 wsl --install ubuntu
+
+# gcc/clang
 winget install MSYS2.MSYS2
+# Basically gives a bash shell that interops with
+# windows (better than git bash)
+# NOTE: in wingw64 shell run:
+# pacman -Syu
+# pacman -S base-devel mingw-w64-x86_64-toolchain
+# this makes gcc and make available.
 
 
 function Add-ToPath {
